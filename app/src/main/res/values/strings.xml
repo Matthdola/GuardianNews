@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Guardian News</string>
+
+    <!-- Text to display in the list when there are no earthquakes [CHAR LIMIT=NONE] -->
+    <string name="no_guardian_data">No Guardian data found.</string>
+
+    <!-- Error message when there is no internet connectivity [CHAR LIMIT=NONE] -->
+    <string name="no_internet_connection">No internet connection.</string>
+    <string name="no_guardian_items">No guardian news found</string>
+</resources>

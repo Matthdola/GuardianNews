@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+    <!-- Text color for the section name of the Guardian Item in the list item -->
+    <color name="textColorGuardianItemSectionName">#B4BAC0</color>
+
+    <!-- Text color for the Web title of the Guardian Item in the list item -->
+    <color name="textColorGuardianItemWebTitle">#2B3D4D</color>
+
+    <!-- Color for an guardian sport  -->
+    <color name="sport">#5d4037</color>
+
+    <!-- Color for an guardian sport pillar -->
+    <color name="news">#ff6d00</color>
+
+    <!-- Color for an guardian sport pillar  -->
+    <color name="arts">#4caf50</color>
+
+    <!-- Color for an guardian sport pillar -->
+    <color name="lifestyle">#880e4f</color>
+
+    <!-- Color for an guardian sport pillar  -->
+    <color name="others">#424242</color>
+
+</resources>
