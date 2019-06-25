@@ -9,7 +9,7 @@ Below are some screenshot of the look of the application on device.
 
 # Start screen
 
-<img src="appscreenshots/screen.png" width="400" >
+<img src="appscreens/screen.png" width="400" >
 
 
 
