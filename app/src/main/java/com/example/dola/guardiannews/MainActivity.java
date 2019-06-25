@@ -9,6 +9,9 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -20,27 +23,33 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<List<GuardianNew>> {
-    private static final int EARTH_LOADER_ID = 1;
+    private static final int GUARDIAN_LOADER_ID = 1;
     public static final String LOG_TAG = "Gardian News Feed";
     public static final String SPORT = "Sport";
     public static final String NEWS = "News";
     public static final String LIFESTYLE = "Lifestyle";
     public static final String ARTS = "Arts";
-    public static final String ENVIRONEMENT = "Environement";
 
     private static final String API_URL =
-          "https://content.guardianapis.com/search?api-key=85720023-f4bd-4c08-ac14-9be02908ed0c";
+          "https://content.guardianapis.com/search?";
+
+    private static final String API_KEY =
+            "api-key=85720023-f4bd-4c08-ac14-9be02908ed0c";
 
     private GuardianNewAdapter adapter;
 
     private TextView mEmptyStateTextView;
     private LinearLayout indicatorContainer;
 
+    NetworkInfo networkInfo;
+    String url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        url = String.format("%s%s", API_URL, API_KEY);
         ListView guardianItemsListView = findViewById(R.id.list);
 
         mEmptyStateTextView = findViewById(R.id.empty_view);
@@ -61,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements
 
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        networkInfo = connMgr.getActiveNetworkInfo();
 
         //If there us a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()){
@@ -70,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements
             // Initialize the loader. Pass in the in ID constant defined above and pass in null for
             // the bundle. Pass in this activity for the LoaderCallbacks parameter(which is valid
             // because this activity implements the LoaderCallbacks interface)
-            loaderManager.initLoader(EARTH_LOADER_ID, null, this);
+            loaderManager.initLoader(GUARDIAN_LOADER_ID, null, this);
         } else {
             // Otherwise, display error
             // First, hide loading indicator so error message will visible
@@ -83,8 +92,67 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_refresh:
+                if (networkInfo != null && networkInfo.isConnected()){
+                    url = String.format("%s%s", API_URL, API_KEY);
+                    // Get a reference to the LoaderManager, in order to interact with loaders
+                    LoaderManager loaderManager = getLoaderManager();
+                    // Initialize the loader. Pass in the in ID constant defined above and pass in null for
+                    // the bundle. Pass in this activity for the LoaderCallbacks parameter(which is valid
+                    // because this activity implements the LoaderCallbacks interface)
+                    loaderManager.restartLoader(GUARDIAN_LOADER_ID, null, this);
+                }
+                return true;
+            case R.id.action_business:
+                if (networkInfo != null && networkInfo.isConnected()){
+                    url = String.format("%s%s%s", API_URL, "section=business&", API_KEY);
+                    // Get a reference to the LoaderManager, in order to interact with loaders
+                    LoaderManager loaderManager = getLoaderManager();
+                    // Initialize the loader. Pass in the in ID constant defined above and pass in null for
+                    // the bundle. Pass in this activity for the LoaderCallbacks parameter(which is valid
+                    // because this activity implements the LoaderCallbacks interface)
+                    loaderManager.restartLoader(GUARDIAN_LOADER_ID, null, this);
+                }
+                return true;
+            case R.id.action_sport:
+                if (networkInfo != null && networkInfo.isConnected()){
+                    url = String.format("%s%s%s", API_URL, "section=sport&", API_KEY);
+                    // Get a reference to the LoaderManager, in order to interact with loaders
+                    LoaderManager loaderManager = getLoaderManager();
+                    // Initialize the loader. Pass in the in ID constant defined above and pass in null for
+                    // the bundle. Pass in this activity for the LoaderCallbacks parameter(which is valid
+                    // because this activity implements the LoaderCallbacks interface)
+                    loaderManager.restartLoader(GUARDIAN_LOADER_ID, null, this);
+                }
+                return true;
+            case R.id.action_news:
+                if (networkInfo != null && networkInfo.isConnected()){
+                    url = String.format("%s%s%s", API_URL, "section=news&", API_KEY);
+                    // Get a reference to the LoaderManager, in order to interact with loaders
+                    LoaderManager loaderManager = getLoaderManager();
+                    // Initialize the loader. Pass in the in ID constant defined above and pass in null for
+                    // the bundle. Pass in this activity for the LoaderCallbacks parameter(which is valid
+                    // because this activity implements the LoaderCallbacks interface)
+                    loaderManager.restartLoader(GUARDIAN_LOADER_ID, null, this);
+
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public Loader<List<GuardianNew>> onCreateLoader(int id, Bundle args) {
-        Uri baseUri = Uri.parse(API_URL);
+        Uri baseUri = Uri.parse(url);
         Uri.Builder builder = baseUri.buildUpon();
 
         return new GuardianNewLoader(this, builder.toString());
@@ -107,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements
             mEmptyStateTextView.setText(R.string.no_guardian_items);
         }
     }
+
 
     @Override
     public void onLoaderReset(Loader<List<GuardianNew>> loader) {

@@ -2,7 +2,7 @@ package com.example.dola.guardiannews;
 
 public class GuardianNew {
     /**
-     *
+     * private properties on the {@link GuardianNew} object
      */
     private String id;
 
@@ -30,18 +30,7 @@ public class GuardianNew {
     }
 
     /**
-     * The constructor
-     * @param id
-     * @param type
-     * @param sectionId
-     * @param sectionName
-     * @param webPublicationDate
-     * @param webTitle
-     * @param webUrl
-     * @param apiUrl
-     * @param isHosted
-     * @param pillarId
-     * @param pillarName
+     * The constructor to create a new {@link GuardianNew} object
      */
     public GuardianNew(String id, String type, String sectionId, String sectionName,
                         String webPublicationDate, String webTitle, String webUrl,
@@ -59,6 +48,9 @@ public class GuardianNew {
         PillarName = pillarName;
     }
 
+    /**
+     * Setters and getters
+     */
     public String getId() {
         return id;
     }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_business"
+        android:title="@string/business"
+        app:showAsAction="never"/>
+
+
+    <item android:id="@+id/action_sport"
+        android:title="@string/sport"
+        app:showAsAction="never"/>
+
+
+    <item android:id="@+id/action_news"
+        android:title="@string/news"
+        app:showAsAction="never"/>
+
+
+    <item android:id="@+id/action_refresh"
+        android:title="@string/refresh"
+        app:showAsAction="never"/>
+
+</menu>

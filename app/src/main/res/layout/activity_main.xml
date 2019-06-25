@@ -45,7 +45,7 @@
                 android:layout_height="match_parent"
                 android:paddingBottom="@dimen/dim_dp_16"
                 android:paddingLeft="@dimen/dim_dp_16"
-                android:paddingRight="@dimen/dim_dp_36"
+                android:paddingRight="@dimen/dim_dp_8"
                 android:divider="@null"
                 android:dividerHeight="0dp"/>
 
