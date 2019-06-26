@@ -118,49 +118,28 @@ public class MainActivity extends AppCompatActivity implements
                 if (networkInfo != null && networkInfo.isConnected()){
                     activateLoading();
                     url = String.format("%s%s", API_URL, API_KEY);
-                    // Get a reference to the LoaderManager, in order to interact with loaders
-                    LoaderManager loaderManager = getLoaderManager();
-                    // Initialize the loader. Pass in the in ID constant defined above and pass in null for
-                    // the bundle. Pass in this activity for the LoaderCallbacks parameter(which is valid
-                    // because this activity implements the LoaderCallbacks interface)
-                    loaderManager.restartLoader(GUARDIAN_LOADER_ID, null, this);
+                    refreshList();
                 }
                 return true;
             case R.id.action_business:
                 if (networkInfo != null && networkInfo.isConnected()){
                     activateLoading();
                     url = String.format("%s%s%s", API_URL, "section=business&", API_KEY);
-                    // Get a reference to the LoaderManager, in order to interact with loaders
-                    LoaderManager loaderManager = getLoaderManager();
-                    // Initialize the loader. Pass in the in ID constant defined above and pass in null for
-                    // the bundle. Pass in this activity for the LoaderCallbacks parameter(which is valid
-                    // because this activity implements the LoaderCallbacks interface)
-                    loaderManager.restartLoader(GUARDIAN_LOADER_ID, null, this);
+                    refreshList();
                 }
                 return true;
             case R.id.action_sport:
                 if (networkInfo != null && networkInfo.isConnected()){
                     activateLoading();
                     url = String.format("%s%s%s", API_URL, "section=sport&", API_KEY);
-                    // Get a reference to the LoaderManager, in order to interact with loaders
-                    LoaderManager loaderManager = getLoaderManager();
-                    // Initialize the loader. Pass in the in ID constant defined above and pass in null for
-                    // the bundle. Pass in this activity for the LoaderCallbacks parameter(which is valid
-                    // because this activity implements the LoaderCallbacks interface)
-                    loaderManager.restartLoader(GUARDIAN_LOADER_ID, null, this);
+                    refreshList();
                 }
                 return true;
             case R.id.action_news:
                 if (networkInfo != null && networkInfo.isConnected()){
                     activateLoading();
                     url = String.format("%s%s%s", API_URL, "section=news&", API_KEY);
-                    // Get a reference to the LoaderManager, in order to interact with loaders
-                    LoaderManager loaderManager = getLoaderManager();
-                    // Initialize the loader. Pass in the in ID constant defined above and pass in null for
-                    // the bundle. Pass in this activity for the LoaderCallbacks parameter(which is valid
-                    // because this activity implements the LoaderCallbacks interface)
-                    loaderManager.restartLoader(GUARDIAN_LOADER_ID, null, this);
-
+                    refreshList();
                 }
                 return true;
         }
@@ -172,6 +151,12 @@ public class MainActivity extends AppCompatActivity implements
         loadingIndicator.setVisibility(View.VISIBLE);
         indicatorContainer.setVisibility(View.VISIBLE);
         mEmptyStateTextView.setVisibility(View.GONE);
+    }
+
+    private void refreshList(){
+        // Get a reference to the LoaderManager, in order to interact with loaders
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.restartLoader(GUARDIAN_LOADER_ID, null, this);
     }
 
     @Override
@@ -207,11 +192,8 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-
     @Override
     public void onLoaderReset(Loader<List<GuardianNew>> loader) {
         adapter.clear();
     }
-
-
 }

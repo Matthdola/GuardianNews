@@ -14,8 +14,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class GuardianNewAdapter  extends ArrayAdapter<GuardianNew> {
-    ArrayList<GuardianNew> guardianNews;
-
     /**
      * Constructs a new {@link GuardianNew}/
      * @param context  of the app

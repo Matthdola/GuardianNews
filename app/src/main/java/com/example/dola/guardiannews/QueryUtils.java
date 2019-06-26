@@ -19,8 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QueryUtils {
-
-
+    
     private QueryUtils(){
 
     }
@@ -240,13 +239,12 @@ public class QueryUtils {
                 }catch (Exception e){
 
                 }
-
-
+                
                 GuardianNews.add(new GuardianNew(id, type, sectionId, sectionName,
                         publiDate,webTitle,webUrl, apiUrl,isHosted,pillarId, pillarName, authoName));
             }
         } catch (JSONException e){
-            Log.e("QueryUtils", "Problem parsing the GuardianNew JSON results", e);
+            Log.e(MainActivity.LOG_TAG, "Problem parsing the GuardianNew JSON results", e);
         }
 
         // Return the list of GuardianNews
