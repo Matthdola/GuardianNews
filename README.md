@@ -7,10 +7,15 @@ This project is part of the training projects of udacity nanodegree
 
 Below are some screenshot of the look of the application on device.
 
-# Start screen
+# Start screen and all domain articles
 
-<img src="appscreens/screen.png" width="400" >
+<img src="appscreens/screen_all.png" width="400" >
 
+# Filter to Sport articles screen
+<img src="appscreens/screen_sport.png" width="400" >
+
+# Filter to News articles screen
+<img src="appscreens/screen_news.png" width="400" >
 
 
 Pre-requisites
