@@ -16,7 +16,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +36,16 @@ public class MainActivity extends AppCompatActivity implements
           "https://content.guardianapis.com/search?";
 
     private static final String API_KEY =
-            "api-key=85720023-f4bd-4c08-ac14-9be02908ed0c";
+            "api-key=85720023-f4bd-4c08-ac14-9be02908ed0c&show-tags=contributor";
 
     private GuardianNewAdapter adapter;
 
     private TextView mEmptyStateTextView;
     private LinearLayout indicatorContainer;
-
-    NetworkInfo networkInfo;
-    String url;
+    private ProgressBar loadingIndicator;
+    private ConnectivityManager connMgr;
+    private NetworkInfo networkInfo;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
 
         mEmptyStateTextView = findViewById(R.id.empty_view);
         indicatorContainer = findViewById(R.id.indicator_container);
+        loadingIndicator = findViewById(R.id.loading_indicator);
 
         adapter = new GuardianNewAdapter(this, new ArrayList<GuardianNew>());
         guardianItemsListView.setAdapter(adapter);
@@ -64,11 +68,15 @@ public class MainActivity extends AppCompatActivity implements
 
                 Uri guardianUrl = Uri.parse(guardianItem.getWebUrl());
                 Intent webSiteIntent = new Intent(Intent.ACTION_VIEW, guardianUrl);
-                startActivity(webSiteIntent);
+                if (webSiteIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(webSiteIntent);
+                } else {
+                    Toast.makeText(view.getContext(), getString(R.string.no_web_browser_message), Toast.LENGTH_LONG).show();
+                }
             }
         });
 
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         networkInfo = connMgr.getActiveNetworkInfo();
 
@@ -83,10 +91,11 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             // Otherwise, display error
             // First, hide loading indicator so error message will visible
-            View loadingIndicator = findViewById(R.id.loading_indicator);
+            loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
 
             // Update empty with no connection error message
+            mEmptyStateTextView.setVisibility(View.VISIBLE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
     }
@@ -100,9 +109,17 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (connMgr != null){
+            connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
         switch (item.getItemId()){
             case R.id.action_refresh:
                 if (networkInfo != null && networkInfo.isConnected()){
+                    loadingIndicator.setVisibility(View.VISIBLE);
+                    indicatorContainer.setVisibility(View.VISIBLE);
+                    mEmptyStateTextView.setVisibility(View.GONE);
+
                     url = String.format("%s%s", API_URL, API_KEY);
                     // Get a reference to the LoaderManager, in order to interact with loaders
                     LoaderManager loaderManager = getLoaderManager();
@@ -161,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onLoadFinished(Loader<List<GuardianNew>> loader, List<GuardianNew> data) {
         // Hide loading indicator because the data has been loaded
-        View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
 
         adapter.clear();
@@ -172,7 +188,15 @@ public class MainActivity extends AppCompatActivity implements
             indicatorContainer.setVisibility(View.GONE);
         } else {
             // Set empty with no connection error message
-            mEmptyStateTextView.setText(R.string.no_guardian_items);
+            indicatorContainer.setVisibility(View.VISIBLE);
+            loadingIndicator.setVisibility(View.GONE);
+            mEmptyStateTextView.setVisibility(View.VISIBLE);
+            if (networkInfo != null){
+                mEmptyStateTextView.setText(R.string.no_internet_connection);
+            } else {
+                mEmptyStateTextView.setText(R.string.no_guardian_items);
+            }
+
         }
     }
 

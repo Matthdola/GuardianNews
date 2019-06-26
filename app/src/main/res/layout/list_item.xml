@@ -22,47 +22,44 @@
             android:background="@drawable/pillar_circle"
             android:layout_marginRight="@dimen/dim_dp_5"
             android:layout_marginEnd="@dimen/dim_dp_5"/>
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/section_name_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextViewTheme"
                 android:textAllCaps="true"
                 android:textColor="@color/textColorGuardianItemWebTitle"
                 android:textSize="@dimen/dim_sp_12"
-                android:layout_marginRight="@dimen/dim_dp_5"
-                android:layout_marginEnd="@dimen/dim_dp_5"/>
+                />
             <TextView
                 android:id="@+id/web_title_textview"
-                android:layout_marginLeft="@dimen/dim_dp_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextViewTheme"
                 android:maxLines="2"
-                android:fontFamily="sans-serif-medium"
                 android:textSize="@dimen/dim_sp_8"
-                android:layout_marginRight="@dimen/dim_dp_5"
-                android:layout_marginEnd="@dimen/dim_dp_5"/>
+                />
+            <TextView
+                android:id="@+id/author_textview"
+                style="@style/TextViewTheme"
+                android:textSize="@dimen/dim_sp_9"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="end"
+            android:gravity="end"
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/publication_date_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                style="@style/TextViewTheme"
                 android:textColor="@color/textColorGuardianItemWebTitle"
                 android:textSize="@dimen/dim_sp_12"
                 />
+
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

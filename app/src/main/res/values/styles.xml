@@ -7,5 +7,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="TextViewTheme" parent="AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_marginStart">@dimen/dim_dp_16</item>
+        <item name="android:layout_marginLeft">@dimen/dim_dp_16</item>
+    </style>
 </resources>

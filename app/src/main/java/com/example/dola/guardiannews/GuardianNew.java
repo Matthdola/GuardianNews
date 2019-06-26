@@ -24,7 +24,9 @@ public class GuardianNew {
 
     private String pillarId;
 
-    private String PillarName;
+    private String pillarName;
+
+    private String authorName;
 
     public GuardianNew() {
     }
@@ -34,7 +36,7 @@ public class GuardianNew {
      */
     public GuardianNew(String id, String type, String sectionId, String sectionName,
                         String webPublicationDate, String webTitle, String webUrl,
-                        String apiUrl, boolean isHosted, String pillarId, String pillarName) {
+                        String apiUrl, boolean isHosted, String pillarId, String pillarName, String authorName) {
         this.id = id;
         this.type = type;
         this.sectionId = sectionId;
@@ -45,7 +47,8 @@ public class GuardianNew {
         this.apiUrl = apiUrl;
         this.isHosted = isHosted;
         this.pillarId = pillarId;
-        PillarName = pillarName;
+        this.pillarName = pillarName;
+        this.authorName = authorName;
     }
 
     /**
@@ -132,10 +135,18 @@ public class GuardianNew {
     }
 
     public String getPillarName() {
-        return PillarName;
+        return pillarName;
     }
 
     public void setPillarName(String pillarName) {
-        PillarName = pillarName;
+        this.pillarName = pillarName;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 }

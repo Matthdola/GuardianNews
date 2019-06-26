@@ -13,4 +13,6 @@
     <string name="news">News</string>
 
     <string name="section">section</string>
+    <string name="authors">Author(s)</string>
+    <string name="no_web_browser_message">You do not have the appriopriate application for that action</string>
 </resources>

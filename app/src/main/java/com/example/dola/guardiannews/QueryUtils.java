@@ -153,6 +153,7 @@ public class QueryUtils {
                 boolean isHosted = false;
                 String pillarId = "";
                 String pillarName = "";
+                String authoName = "";
 
                 try {
                     id = guardianNewObj.getString("id");
@@ -213,9 +214,36 @@ public class QueryUtils {
                 }catch (Exception e){
 
                 }
+                JSONArray tagsJsonArray = null;
+                try {
+                    tagsJsonArray = guardianNewObj.getJSONArray("tags");
+                    if (tagsJsonArray != null){
+                        StringBuilder authorNameBuilder = new StringBuilder();
+                        for (int j = 0; j < tagsJsonArray.length(); j++) {
+                            JSONObject contributorObj = tagsJsonArray.getJSONObject(j);
+
+                            if (authorNameBuilder.length() > 0){
+                                authorNameBuilder.append(", ");
+                            }
+                            try {
+                                String firstName = contributorObj.getString("firstName");
+                                String  lastName = contributorObj.getString("lastName");
+                                authorNameBuilder.append(String.format("%s %s", firstName, lastName));
+                            }catch (Exception e){
+
+                            }
+                        }
+                        if (authorNameBuilder.length() > 0){
+                            authoName = authorNameBuilder.toString();
+                        }
+                    }
+                }catch (Exception e){
+
+                }
+
 
                 GuardianNews.add(new GuardianNew(id, type, sectionId, sectionName,
-                        publiDate,webTitle,webUrl, apiUrl,isHosted,pillarId, pillarName));
+                        publiDate,webTitle,webUrl, apiUrl,isHosted,pillarId, pillarName, authoName));
             }
         } catch (JSONException e){
             Log.e("QueryUtils", "Problem parsing the GuardianNew JSON results", e);

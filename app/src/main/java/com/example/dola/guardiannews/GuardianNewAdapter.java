@@ -50,6 +50,10 @@ public class GuardianNewAdapter  extends ArrayAdapter<GuardianNew> {
         TextView sectionNameTextview = convertView.findViewById(R.id.section_name_textview);
         sectionNameTextview.setText(String.format("%s", guardianNew.getSectionName()));
 
+        // Find the TextView in the list_item.xml layout with ID author_textview
+        TextView authorNameTextview = convertView.findViewById(R.id.author_textview);
+        authorNameTextview.setText(String.format("%s: %s", getContext().getString(R.string.authors),guardianNew.getAuthorName()));
+
         // Find the TextView in the list_item.xml layout with ID publication_date_textview
         TextView dateTextview = convertView.findViewById(R.id.publication_date_textview);
         String[] dateStr = guardianNew.getWebPublicationDate().split("T");
