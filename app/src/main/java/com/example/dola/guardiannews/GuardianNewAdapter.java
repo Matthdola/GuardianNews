@@ -14,6 +14,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class GuardianNewAdapter  extends ArrayAdapter<GuardianNew> {
+    ArrayList<GuardianNew> guardianNews;
+
     /**
      * Constructs a new {@link GuardianNew}/
      * @param context  of the app
@@ -21,46 +23,44 @@ public class GuardianNewAdapter  extends ArrayAdapter<GuardianNew> {
      */
     public GuardianNewAdapter(@NonNull Context context, ArrayList<GuardianNew> guardianNews) {
         super(context, 0, guardianNews);
+
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        GuardianNewViewHolder guardianNewViewHolder;
 
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+            guardianNewViewHolder = new GuardianNewViewHolder(convertView);
+
+            convertView.setTag(guardianNewViewHolder);
+
+        } else {
+            guardianNewViewHolder = (GuardianNewViewHolder)convertView.getTag();
         }
 
         GuardianNew guardianNew = getItem(position);
 
-        // Find the TextView in the list_item.xml layout with ID web_title_textview
-        TextView titleTextview = convertView.findViewById(R.id.web_title_textview);
-        titleTextview.setText(String.format("%s", guardianNew.getWebTitle()));
+        guardianNewViewHolder.titleTextview.setText(String.format("%s", guardianNew.getWebTitle()));
 
-        // Find the TextView in the list_item.xml layout with ID web_title_textview
-        TextView pillarNameTextview = convertView.findViewById(R.id.pillar_name_textview);
-        pillarNameTextview.setText(String.format("%s", guardianNew.getPillarName()));
+        guardianNewViewHolder.pillarNameTextview.setText(String.format("%s", guardianNew.getPillarName()));
 
-        GradientDrawable pillarCircle = (GradientDrawable) pillarNameTextview.getBackground();
+        GradientDrawable pillarCircle = (GradientDrawable) guardianNewViewHolder.pillarNameTextview.getBackground();
         int pillarColor = getGuardianPillarColor(guardianNew.getPillarName());
 
         pillarCircle.setColor(pillarColor);
 
-        // Find the TextView in the list_item.xml layout with ID section_name_textview
-        TextView sectionNameTextview = convertView.findViewById(R.id.section_name_textview);
-        sectionNameTextview.setText(String.format("%s", guardianNew.getSectionName()));
+        guardianNewViewHolder.sectionNameTextview.setText(String.format("%s", guardianNew.getSectionName()));
 
-        // Find the TextView in the list_item.xml layout with ID author_textview
-        TextView authorNameTextview = convertView.findViewById(R.id.author_textview);
-        authorNameTextview.setText(String.format("%s: %s", getContext().getString(R.string.authors),guardianNew.getAuthorName()));
+        guardianNewViewHolder.authorNameTextview.setText(String.format("%s: %s", getContext().getString(R.string.authors),guardianNew.getAuthorName()));
 
-        // Find the TextView in the list_item.xml layout with ID publication_date_textview
-        TextView dateTextview = convertView.findViewById(R.id.publication_date_textview);
         String[] dateStr = guardianNew.getWebPublicationDate().split("T");
         if (dateStr.length > 1){
-            dateTextview.setText(String.format("%s", dateStr[0]));
+            guardianNewViewHolder.dateTextview.setText(String.format("%s", dateStr[0]));
         } else {
-            dateTextview.setText(String.format("%s", dateStr[0]));
+            guardianNewViewHolder.dateTextview.setText(String.format("%s", dateStr[0]));
         }
         return  convertView;
     }
@@ -87,5 +87,32 @@ public class GuardianNewAdapter  extends ArrayAdapter<GuardianNew> {
                 break;
         }
         return ContextCompat.getColor(getContext(), magnitudeColorResourceId);
+    }
+
+    static class GuardianNewViewHolder{
+        public TextView titleTextview;
+        public TextView pillarNameTextview;
+        public TextView sectionNameTextview;
+        public TextView authorNameTextview;
+        public TextView dateTextview;
+
+        public GuardianNewViewHolder(View itemView){
+
+            // Find the TextView in the list_item.xml layout with ID web_title_textview
+            titleTextview = itemView.findViewById(R.id.web_title_textview);
+
+            // Find the TextView in the list_item.xml layout with ID web_title_textview
+            pillarNameTextview = itemView.findViewById(R.id.pillar_name_textview);
+
+            // Find the TextView in the list_item.xml layout with ID section_name_textview
+            sectionNameTextview = itemView.findViewById(R.id.section_name_textview);
+
+            // Find the TextView in the list_item.xml layout with ID author_textview
+            authorNameTextview = itemView.findViewById(R.id.author_textview);
+
+            // Find the TextView in the list_item.xml layout with ID publication_date_textview
+            dateTextview = itemView.findViewById(R.id.publication_date_textview);
+
+        }
     }
 }

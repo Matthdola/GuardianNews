@@ -116,10 +116,7 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()){
             case R.id.action_refresh:
                 if (networkInfo != null && networkInfo.isConnected()){
-                    loadingIndicator.setVisibility(View.VISIBLE);
-                    indicatorContainer.setVisibility(View.VISIBLE);
-                    mEmptyStateTextView.setVisibility(View.GONE);
-
+                    activateLoading();
                     url = String.format("%s%s", API_URL, API_KEY);
                     // Get a reference to the LoaderManager, in order to interact with loaders
                     LoaderManager loaderManager = getLoaderManager();
@@ -131,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
             case R.id.action_business:
                 if (networkInfo != null && networkInfo.isConnected()){
+                    activateLoading();
                     url = String.format("%s%s%s", API_URL, "section=business&", API_KEY);
                     // Get a reference to the LoaderManager, in order to interact with loaders
                     LoaderManager loaderManager = getLoaderManager();
@@ -142,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
             case R.id.action_sport:
                 if (networkInfo != null && networkInfo.isConnected()){
+                    activateLoading();
                     url = String.format("%s%s%s", API_URL, "section=sport&", API_KEY);
                     // Get a reference to the LoaderManager, in order to interact with loaders
                     LoaderManager loaderManager = getLoaderManager();
@@ -153,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
             case R.id.action_news:
                 if (networkInfo != null && networkInfo.isConnected()){
+                    activateLoading();
                     url = String.format("%s%s%s", API_URL, "section=news&", API_KEY);
                     // Get a reference to the LoaderManager, in order to interact with loaders
                     LoaderManager loaderManager = getLoaderManager();
@@ -165,6 +165,13 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void activateLoading()
+    {
+        loadingIndicator.setVisibility(View.VISIBLE);
+        indicatorContainer.setVisibility(View.VISIBLE);
+        mEmptyStateTextView.setVisibility(View.GONE);
     }
 
     @Override
