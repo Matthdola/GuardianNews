@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/section_name_textview"
@@ -57,7 +57,7 @@
                 android:id="@+id/publication_date_textview"
                 style="@style/TextViewTheme"
                 android:textColor="@color/textColorGuardianItemWebTitle"
-                android:textSize="@dimen/dim_sp_12"
+                android:textSize="@dimen/dim_sp_9"
                 />
 
         </LinearLayout>
